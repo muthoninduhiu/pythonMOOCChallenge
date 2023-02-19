@@ -1,7 +1,7 @@
 import itertools
 import math
 import string
-import time
+from time import perf_counter
 import tkinter as tk
 from tkinter import CENTER
 
@@ -22,7 +22,7 @@ def main():
     password = enter_text.get()
     # Running the Brute Force attack
     charset = string.ascii_lowercase
-    start = time.time()
+    start = perf_counter()
     # cartesian product, equivalent to a nested for-loop
     # a set of all ordered pairs between charset and repeat
     # which is the length of the password input
@@ -35,18 +35,18 @@ def main():
         if test == password:
             # print("Password Found! [%s]" % test)
             break
-    end = time.time()
-    res = (end - start) * 1000
+    end = perf_counter()
+    res = (end - start)
     # print("It takes {} milliseconds to crack {} ".format(res, password))
     my_float = round(res, 2)
     # get the execution time
     final_res = str(my_float)
     exec_time_label = tk.Label(root,
-                               text="It takes: \n" + final_res + " milliseconds\nTo crack:" + password,
+                               text="It takes: \n" + final_res + " seconds\nTo crack:" + password,
                                font=("Verdana", 15, "bold"),
                                bg="#000000",
                                fg="#1e00ff")
-    exec_time_label.place(x=125, y=310)
+    exec_time_label.place(x=100, y=310)
 
 
 heading = tk.Label(root,
