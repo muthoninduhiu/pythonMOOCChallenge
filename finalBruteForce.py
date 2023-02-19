@@ -1,14 +1,20 @@
 import itertools
+import math
 import string
 import time
 import tkinter as tk
+from tkinter import CENTER
 
 # create the main window of the app
 root = tk.Tk()
 # set the title of the main window as 'Brute Force'
 root.title("Brute Force")
-root.geometry("700x500")
+root.geometry("450x450")
 root.config(background="#000000")
+
+
+def temp_text(e):
+    enter_text.delete(0, "end")
 
 
 def main():
@@ -32,15 +38,15 @@ def main():
     end = time.time()
     res = (end - start) * 1000
     # print("It takes {} milliseconds to crack {} ".format(res, password))
-
+    my_float = round(res, 2)
     # get the execution time
-    final_res = str(res * 1000)
+    final_res = str(my_float)
     exec_time_label = tk.Label(root,
-                               text="It takes: \n" + final_res + " milliseconds\nTo crack:"+password,
+                               text="It takes: \n" + final_res + " milliseconds\nTo crack:" + password,
                                font=("Verdana", 15, "bold"),
                                bg="#000000",
                                fg="#1e00ff")
-    exec_time_label.place(x=150, y=310)
+    exec_time_label.place(x=125, y=310)
 
 
 heading = tk.Label(root,
@@ -49,15 +55,17 @@ heading = tk.Label(root,
                    bg="#000000",
                    fg="#1e00ff")
 heading.pack(pady=(90, 0))
+
 enter_text = tk.Entry(root,
                       justify="center",
-                      show="*",
                       width=18,
-                      font=("Verdana", 20, "bold"),
+                      font=("Verdana", 15, "italic"),
                       bg="white",
-                      border=2)
+                      border=2,
+                      bd=5)
+enter_text.insert(0, "Enter Password...")
 enter_text.pack(pady=10)
-enter_text.focus()
+enter_text.bind("<FocusIn>", temp_text)
 
 button = tk.Button(root,
                    text="Crack Password",
@@ -66,6 +74,7 @@ button = tk.Button(root,
                    fg="#1e00ff",
                    bg="#000000",
                    command=main)
+button.place(relx=0.5, rely=0.5, anchor=CENTER)
 button.pack()
 
 root.mainloop()
