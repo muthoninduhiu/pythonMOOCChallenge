@@ -15,7 +15,7 @@ root.config(background="#000000")
 
 # functions
 
-# function to add a hint of input for user experience
+# create function to add a hint of input for user experience
 def temp_text(e):
     enter_text.delete(0, "end")
 
@@ -32,7 +32,7 @@ def get_hash(password):
 
 def brute_force(password_list, hashed_password, password, try_random_password):
     """
-        A function used return the password as a string of double length
+        A function used to crack a password
         param: password: user input,
                password_hash: hashed password,
                password_list: common passwords list,
