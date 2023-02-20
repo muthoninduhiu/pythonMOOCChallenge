@@ -1,5 +1,4 @@
 import itertools
-import math
 import string
 from time import perf_counter
 import tkinter as tk
@@ -46,7 +45,7 @@ def main():
                                font=("Verdana", 15, "bold"),
                                bg="#000000",
                                fg="#1e00ff")
-    exec_time_label.place(x=100, y=310)
+    exec_time_label.place(x=150, y=310)
 
 
 heading = tk.Label(root,
