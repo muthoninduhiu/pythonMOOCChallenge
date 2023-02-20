@@ -3,7 +3,7 @@ import hashlib
 import itertools
 import string
 import time
-from tkinter import ttk
+
 
 # create the main window of the app
 root = tk.Tk()
@@ -71,6 +71,7 @@ def brute_force(password_list, hashed_password, password, try_random_password):
     if not found_password:
         result_label.config(text="password not found")
 
+
 def check_password():
     """
     A function used to call the functions get_hash()and brute_force
@@ -94,14 +95,6 @@ def check_password():
 
     # get the execution time
     res = et - st
-
-    time_used = tk.Label(
-        root,
-        text="Execution time",
-        font=("Verdana", 20, "bold"),
-        bg="#000000",
-        fg="#1e00ff")
-    time_used.place(x=170, y=450)
     time_used.config(
         text="Execution time: \n" + str(round(res, 2)) + 'seconds')
 
@@ -133,7 +126,15 @@ result_label = tk.Label(
     font=("Verdana", 20, "bold"),
     bg="#000000",
     fg="#1e00ff")
-result_label.place(x=0, y=310)
+result_label.place(x=0, y=250)
+
+time_used = tk.Label(
+        root,
+        font=("Verdana", 20, "bold"),
+        bg="#000000",
+        fg="#1e00ff")
+time_used.place(x=170, y=400)
+
 # style the button
 button = tk.Button(
     root,
