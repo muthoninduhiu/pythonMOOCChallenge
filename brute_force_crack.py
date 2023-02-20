@@ -39,6 +39,7 @@ def brute_force(password_list, hashed_password, password, try_random_password):
                try_random_password: variable used when userinput is not in  password_list
         return: no return value
         """
+    found_password = False
     # check if password is in password list
     for guess_password in password_list:
         if get_hash(guess_password) == hashed_password:
@@ -46,10 +47,11 @@ def brute_force(password_list, hashed_password, password, try_random_password):
             result_label.grid_forget()
             result_label.config(text="Your password:\n" + correct_password
                                + "\n is a common password")
-            try_random_password = 1
+            found_password = 1
+            break
     # else try cracking the password using brute force(guessing)
 
-    if try_random_password == 0:
+    if try_random_password == 0 and not found_password:
         charset = string.ascii_letters + string.digits + string.punctuation
 
         # cartesian product, equivalent to a nested for-loop
@@ -63,8 +65,11 @@ def brute_force(password_list, hashed_password, password, try_random_password):
                 result_label.grid_forget()
                 result_label.config(text="Your password:\n" + test
                                    + "\n was cracked!")
+                found_password = 1
                 break
-
+    # error message if password is not found
+    if not found_password:
+        result_label.config(text="password not found")
 
 def check_password():
     """
