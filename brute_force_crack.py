@@ -14,7 +14,7 @@ root.config(background="#000000")
 
 # functions
 
-# function to add text to entry text in tkinter
+# function to add a hint of input for user experience
 def temp_text(e):
     enter_text.delete(0, "end")
 
@@ -43,17 +43,19 @@ def brute_force(password_list, hashed_password, password, try_random_password):
         if get_hash(guess_password) == hashed_password:
             correct_password = guess_password
             answer = tk.Label(root,
-                              text="Your password is",
                               font=("Verdana", 20),
                               bg="#000000",
                               fg="#1e00ff")
-            answer.place(x=160, y=310)
+            answer.place(x=130, y=310)
+            answer.grid_forget()
             answer.config(text="Your password:" + correct_password
                                + "\n is a common password")
             try_random_password = 1
     # else try cracking the password using brute force(guessing)
+
     if try_random_password == 0:
         charset = string.ascii_letters + string.digits + string.punctuation
+
         # cartesian product, equivalent to a nested for-loop
         # a set of all ordered pairs between charset and repeat
         # which is the length of the password input
@@ -69,6 +71,7 @@ def brute_force(password_list, hashed_password, password, try_random_password):
                                   bg="#000000",
                                   fg="#1e00ff")
                 answer.place(x=180, y=310)
+                answer.grid_forget()
                 answer.config(text="Your password:" + test
                                    + "\n was found!")
                 # print('your password is:', test)
@@ -82,16 +85,16 @@ def check_password():
     params: none
     return value: none
     """
-    password = enter_text.get()
+    user_input = enter_text.get()
     with open('password.txt', 'r', encoding='utf-8') as text_file:
         contents = text_file.read()
 
     st = time.time()
-    hashed_password = get_hash(password)
+    hashed_password = get_hash(user_input)
     password_list = contents.split('\n')
     try_random_password = 0
     # Running the Brute Force attack
-    brute_force(password_list, hashed_password, password, try_random_password)
+    brute_force(password_list, hashed_password, user_input, try_random_password)
 
     # get the end time
     et = time.time()
@@ -104,7 +107,7 @@ def check_password():
                          font=("Verdana", 20),
                          bg="#000000",
                          fg="#1e00ff")
-    time_used.place(x=200, y=450)
+    time_used.place(x=200, y=410)
     time_used.config(text="Execution time: \n" + str(round(res, 2)) + 'seconds')
 
 
@@ -115,6 +118,7 @@ heading = tk.Label(root,
                    bg="#000000",
                    fg="#1e00ff")
 heading.pack(pady=(90, 0))
+
 # style the entry box
 enter_text = tk.Entry(root,
                       justify="center",
@@ -125,6 +129,7 @@ enter_text = tk.Entry(root,
 enter_text.insert(0, "Enter Password...")
 enter_text.pack(pady=10)
 enter_text.bind("<FocusIn>", temp_text)
+
 # style the button
 button = tk.Button(root,
                    text="Check Password",
